@@ -3,11 +3,12 @@ import DataContainer from "../../components/DataContainer";
 import Nav from "../../components/Nav";
 
 const Dashboard = () => {
-    return (
+  return (
     <Container component="main" disableGutters maxWidth={false}>
-      <Nav/>
-      <DataContainer/>
-    </Container>)
-  };
-  
+      <Nav />
+      <DataContainer />
+    </Container>
+  );
+};
+
 export default Dashboard;
