@@ -43,7 +43,7 @@ export const PartnerProviders = ({ children }: IPartnerProviderProps) => {
   const [globalLoading, setGlobalLoading] = useState(false);
 
   const loginPartner = async (data: IPartnerLogin) => {
-    console.log(data);
+    setGlobalLoading(true);
     const hasToken = getLocalStorage();
     if (hasToken) {
       refreshPartner(hasToken);
@@ -56,10 +56,12 @@ export const PartnerProviders = ({ children }: IPartnerProviderProps) => {
             router.navigate("/dashboard")
           }
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.log(error))
+        .finally(() => setGlobalLoading(false));
     }
   };
   const refreshPartner = (hasToken: any) => {
+    setGlobalLoading(true);
     const data = { refresh: hasToken.refresh };
     api
       .post("refresh/", data)
@@ -67,11 +69,15 @@ export const PartnerProviders = ({ children }: IPartnerProviderProps) => {
         if (res.status === 200) {
           setLocalStorage(res.data, true);
           router.navigate("/dashboard")
+        } else if(res.status === 401){
+          console.log(res.status)
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(() => setGlobalLoading(false));
   };
   const registerPartner = (data:IPartner) => {
+    setGlobalLoading(true);
     api
         .post("partners/", data)
         .then((res) => {
@@ -79,7 +85,8 @@ export const PartnerProviders = ({ children }: IPartnerProviderProps) => {
             console.log(res.data)
           }
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.log(error))
+        .finally(() => setGlobalLoading(false));
   }
   const setLocalStorage = (data: IAcessToken, refresh = false) => {
     if (refresh) {
