@@ -9,16 +9,36 @@ import LoginIcon from '@mui/icons-material/Login';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
-const Login = () => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+import { useForm, useInput } from "lx-react-form";
 
+const Login = () => {
+  const email = useInput({
+    name: "email",
+    customValidations: [
+      {
+        regex: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+        error:
+          "Please enter a valid email address.",
+      },
+    ],
+    errorText: {
+      required: "This field is required",
+    }
+  });
+  const password = useInput({
+    name: "password",
+    validation: "senha",
+    errorText: {
+      required: "This field is required",
+      minLength: "Password must contain at least 8 characters",
+    },
+  });
+  const form = useForm({
+    formFields: [email, password],
+    submitCallback: (formData) => {
+      console.log(formData)
+    },
+  });
   return (
       <Container component="main" maxWidth="xs">
         <Box
@@ -35,26 +55,27 @@ const Login = () => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={form.handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
               fullWidth
               id="email"
               label="Email Address"
-              name="email"
               autoComplete="email"
-              autoFocus
+              helperText={email.error}
+              {...email.inputProps}
             />
             <TextField
               margin="normal"
               required
               fullWidth
-              name="password"
               label="Password"
               type="password"
               id="password"
               autoComplete="current-password"
+              helperText={password.error}
+              {...password.inputProps}
             />
             <Button
               type="submit"
@@ -66,7 +87,7 @@ const Login = () => {
             </Button>
             <Grid item>
               <Link href="/register" variant="body2">
-                {"Don't have an account? Sign Up"}
+                {"Don't have an account? Register Now"}
               </Link>
             </Grid>
           </Box>
