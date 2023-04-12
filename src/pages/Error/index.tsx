@@ -16,6 +16,7 @@ export const PageError = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          gap: 4
         }}
       >
         <Typography component="h1" variant="h1">
@@ -27,7 +28,7 @@ export const PageError = () => {
         <Typography component="h1" variant="h5">
           Verify that the URL is correct and try again.
         </Typography>
-        <Button onClick={onclick} sx={{ mt: 3 }} variant="contained">
+        <Button onClick={onclick} variant="contained">
           Go back to home page
         </Button>
       </Box>
