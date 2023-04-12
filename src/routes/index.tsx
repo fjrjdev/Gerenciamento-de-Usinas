@@ -1,16 +1,30 @@
-import { Routes, Route } from "react-router-dom";
-import ProtectedRoutes from "./ProtectedRoutes";
+import { createBrowserRouter } from "react-router-dom";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
+import { RequireAuth } from "./ProtectedRoutes";
+import PageError from "../pages/Error";
 
-const RoutesMain = () => (
-  <Routes>
-    <Route path="/" element={<Login />} />
-    <Route path="/register" element={<Register />} />
-    <Route element={<ProtectedRoutes />}>
-      <Route path="/dashboard" element={<Dashboard />} />
-    </Route>
-  </Routes>
-);
-export default RoutesMain;
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />,
+    errorElement: <PageError />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+    errorElement: <PageError />,
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <RequireAuth>
+        <Dashboard />
+      </RequireAuth>
+    ),
+    errorElement: <PageError />,
+  },
+]);
+
+export default router;
