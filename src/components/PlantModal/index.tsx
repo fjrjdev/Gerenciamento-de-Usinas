@@ -26,7 +26,8 @@ const PlantModal: React.FC<IPlantModal> = ({edit = false}) => {
         aria-describedby="modal-modal-description"
       >
         <div>
-            {edit? <EditPlantForm setOpen={setOpen}/>: <CreatePlantForm setOpen={setOpen}/>  }
+            {edit? 
+            <EditPlantForm setOpen={setOpen}/>: <CreatePlantForm setOpen={setOpen}/>  }
         </div>
       </Modal>
     </div>

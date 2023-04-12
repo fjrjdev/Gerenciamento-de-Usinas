@@ -67,7 +67,7 @@ const DataContainer = () => {
     },
   ];
   return (
-    <Box sx={{ height: 600, width: "100%" }}>
+    <Box sx={{ height: '90vh', width: "100%" }}>
       <DataGrid
         rows={data}
         columns={columns}

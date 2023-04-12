@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useForm, useInput } from "lx-react-form";
 import CloseIcon from "@mui/icons-material/Close";
+import SelectInput from "../SelectInput";
 
 interface IEditPlantFrom {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -70,73 +71,78 @@ const EditPlantForm: React.FC<IEditPlantFrom> = ({ setOpen }) => {
             <CloseIcon />
           </button>
         </Box>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="name"
-          label="Name"
-          autoComplete="name"
-          helperText={name.error}
-          {...name.inputProps}
-        />
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="cep"
-          label="CEP"
-          autoComplete="cep"
-          helperText={cep.error}
-          {...cep.inputProps}
-        />
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="latitude"
-          label="latitude"
-          autoComplete="latitude"
-          helperText={latitude.error}
-          {...latitude.inputProps}
-        />
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="longitude"
-          label="longitude"
-          autoComplete="longitude"
-          helperText={longitude.error}
-          {...longitude.inputProps}
-        />
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="maximum_capacity_GW"
-          label="Maximum GW Capacity"
-          autoComplete="maximum_capacity_GW"
-          helperText={maximum_capacity_GW.error}
-          {...maximum_capacity_GW.inputProps}
-        />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 3 }}
-        >
-          Save Changes
-        </Button>
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="error"
-          sx={{ mb: 2 }}
-        >
-          Delete Plant
-        </Button>
+        <Box sx={{mb: 2, mt: 2}}>
+          <SelectInput/>
+        </Box>
+        <Box>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="name"
+            label="Name"
+            autoComplete="name"
+            helperText={name.error}
+            {...name.inputProps}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="cep"
+            label="CEP"
+            autoComplete="cep"
+            helperText={cep.error}
+            {...cep.inputProps}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="latitude"
+            label="latitude"
+            autoComplete="latitude"
+            helperText={latitude.error}
+            {...latitude.inputProps}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="longitude"
+            label="longitude"
+            autoComplete="longitude"
+            helperText={longitude.error}
+            {...longitude.inputProps}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="maximum_capacity_GW"
+            label="Maximum GW Capacity"
+            autoComplete="maximum_capacity_GW"
+            helperText={maximum_capacity_GW.error}
+            {...maximum_capacity_GW.inputProps}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 3 }}
+          >
+            Save Changes
+          </Button>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="error"
+            sx={{ mb: 2 }}
+          >
+            Delete Plant
+          </Button>
+        </Box>
       </Box>
     </Box>
   );
