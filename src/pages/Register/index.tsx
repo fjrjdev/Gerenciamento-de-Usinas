@@ -93,8 +93,7 @@ const Register = () => {
               id="name"
               label="Name"
               autoComplete="name"
-              autoFocus 
-              helperText={name.error || ""}
+              helperText={name.error }
               {...name.inputProps}
             />
             <TextField
@@ -112,7 +111,7 @@ const Register = () => {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Email"
               autoComplete="email"
               helperText={email.error}
               {...email.inputProps}
@@ -149,7 +148,7 @@ const Register = () => {
             </Button>
             <Grid item>
               <Link href="/" variant="body2">
-                {"Return to login"}
+                {"Return to home"}
               </Link>
             </Grid>
           </Box>
