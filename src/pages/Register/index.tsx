@@ -10,8 +10,10 @@ import Container from "@mui/material/Container";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 
 import { useForm, useInput } from "lx-react-form";
+import { PartnerContext } from "../../contexts/PartnerContext/PartnerContext";
 
 const Register = () => {
+  const { registerPartner } = React.useContext(PartnerContext);
   const name = useInput({
     name: "name",
     errorText: {
@@ -63,7 +65,7 @@ const Register = () => {
   const form = useForm({
     formFields: [name, cnpj, email, password],
     submitCallback: (formData) => {
-      console.log(formData);
+      registerPartner(formData);
     },
   });
   return (
