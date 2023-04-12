@@ -10,8 +10,10 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
 import { useForm, useInput } from "lx-react-form";
+import { PartnerContext } from "../../contexts/PartnerContext/PartnerContext";
 
 const Login = () => {
+  const {loginPartner} = React.useContext(PartnerContext)
   const email = useInput({
     name: "email",
     customValidations: [
@@ -36,7 +38,7 @@ const Login = () => {
   const form = useForm({
     formFields: [email, password],
     submitCallback: (formData) => {
-      console.log(formData);
+      loginPartner(formData);
     },
   });
   return (

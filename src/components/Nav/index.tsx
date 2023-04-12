@@ -5,6 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import PlantModal from "../../components/PlantModal";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   return (
@@ -18,7 +19,9 @@ const Nav = () => {
             <PlantModal />
             <PlantModal edit />
           </Box>
-          <Button color="inherit">Logout</Button>
+          <Link to={"/"} color="secondary">
+              <Button variant='contained'color="inherit">Logout</Button>
+          </Link>
         </Toolbar>
       </AppBar>
     </Box>
