@@ -4,12 +4,15 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useForm, useInput } from "lx-react-form";
 import CloseIcon from "@mui/icons-material/Close";
+import { PlantsContext } from "../../contexts/PlantsContext/PlantsContext";
+import React from "react";
 
 interface ICreatePlantFrom {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CreatePlantForm: React.FC<ICreatePlantFrom> = ({ setOpen }) => {
+  const { registerPlant } = React.useContext(PlantsContext);
   const name = useInput({
     name: "name",
     errorText: {
@@ -44,7 +47,7 @@ const CreatePlantForm: React.FC<ICreatePlantFrom> = ({ setOpen }) => {
   const form = useForm({
     formFields: [name, cep, latitude, longitude, maximum_capacity_GW],
     submitCallback: (formData) => {
-      console.log(formData);
+      registerPlant(formData);
     },
   });
   return (

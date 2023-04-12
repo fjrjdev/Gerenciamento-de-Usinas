@@ -2,9 +2,6 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 import { api } from "../../services";
 import router from "../../routes";
-
-
-
 interface IPartner {
   id: string;
   name: string;
@@ -17,14 +14,13 @@ interface IPartnerLogin {
   email: string;
   password: string;
 }
-
-
 interface IPartnerProviderProps {
   children: ReactNode;
 }
 interface IAcessToken {
   access: string;
   refresh: string;
+  partner_id?: string
 }
 export interface IDecodedToken {
   user_id: string;
@@ -35,6 +31,7 @@ interface IPartnerContext {
   setGlobalLoading: React.Dispatch<React.SetStateAction<boolean>>;
   loginPartner(data: IPartnerLogin): void;
   registerPartner(data:IPartner): void
+  getLocalStorage(): IAcessToken 
 }
 export const PartnerContext = createContext({} as IPartnerContext);
 
@@ -53,6 +50,7 @@ export const PartnerProviders = ({ children }: IPartnerProviderProps) => {
         .then((res) => {
           if (res.status === 200) {
             setLocalStorage(res.data);
+            setPartnerData(getLocalStorage())
             router.navigate("/dashboard")
           }
         })
@@ -68,9 +66,10 @@ export const PartnerProviders = ({ children }: IPartnerProviderProps) => {
       .then((res) => {
         if (res.status === 200) {
           setLocalStorage(res.data, true);
+          setPartnerData(getLocalStorage())
           router.navigate("/dashboard")
         } else if(res.status === 401){
-          console.log(res.status)
+          router.navigate("/")
         }
       })
       .catch((error) => console.log(error))
@@ -82,7 +81,7 @@ export const PartnerProviders = ({ children }: IPartnerProviderProps) => {
         .post("partners/", data)
         .then((res) => {
           if (res.status === 201) {
-            console.log(res.data)
+            router.navigate("/")
           }
         })
         .catch((error) => console.log(error))
@@ -118,7 +117,8 @@ export const PartnerProviders = ({ children }: IPartnerProviderProps) => {
         globalLoading,
         setGlobalLoading,
         loginPartner,
-        registerPartner
+        registerPartner,
+        getLocalStorage
       }}
     >
       {children}
