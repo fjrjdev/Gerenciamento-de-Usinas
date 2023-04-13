@@ -4,10 +4,11 @@ import TextField from "@mui/material/TextField";
 import { useForm, useInput } from "lx-react-form";
 import React from "react";
 import { PlantsContext } from "../../contexts/PlantsContext/PlantsContext";
+import { boolean } from "yup";
 
 const EditForm = ({ props }: any) => {
   const { patchPlant } = React.useContext(PlantsContext);
-  const [data, setData] = React.useState(undefined);
+  const [select, setSelect] = React.useState(true);
   let id = "";
   const name = useInput({
     name: "name",
@@ -50,17 +51,16 @@ const EditForm = ({ props }: any) => {
     formFields: [name, cep, latitude, longitude, maximum_capacity_GW],
     clearFields: true,
     submitCallback: (formData) => {
-      setData(undefined)
-      if (data !== undefined) {
+      setSelect(false);
+      if (!select) {
         patchPlant(formData);
-        setData(undefined)
+        setSelect(true)
       }
-      setData(formData);
     },
   });
   return (
     <Box component="form" onSubmit={form.handleSubmit} noValidate>
-      <Button type="submit" color="primary" variant="contained">
+      <Button type="submit" color="secondary" variant="contained">
         Select Plant
       </Button>
       <TextField
@@ -71,6 +71,7 @@ const EditForm = ({ props }: any) => {
         id="name"
         label="Name"
         helperText={name.error}
+        disabled={select}
       />
       <TextField
         {...cep.inputProps}
@@ -80,6 +81,7 @@ const EditForm = ({ props }: any) => {
         id="cep"
         label="CEP"
         helperText={cep.error}
+        disabled={select}
       />
       <TextField
         {...latitude.inputProps}
@@ -89,6 +91,7 @@ const EditForm = ({ props }: any) => {
         id="latitude"
         label="latitude"
         helperText={latitude.error}
+        disabled={select}
       />
       <TextField
         {...longitude.inputProps}
@@ -98,6 +101,7 @@ const EditForm = ({ props }: any) => {
         id="longitude"
         label="longitude"
         helperText={longitude.error}
+        disabled={select}
       />
       <TextField
         {...maximum_capacity_GW.inputProps}
@@ -107,6 +111,7 @@ const EditForm = ({ props }: any) => {
         id="maximum_capacity_GW"
         label="Maximum GW Capacity"
         helperText={maximum_capacity_GW.error}
+        disabled={select}
       />
       <Button
         type="submit"
@@ -114,6 +119,7 @@ const EditForm = ({ props }: any) => {
         variant="contained"
         onClick={() => {}}
         sx={{ mt: 3, mb: 3 }}
+        disabled={select}
       >
         Save Changes
       </Button>
@@ -123,6 +129,7 @@ const EditForm = ({ props }: any) => {
         variant="contained"
         color="error"
         sx={{ mb: 2 }}
+        disabled={select}
       >
         Delete Plant
       </Button>
