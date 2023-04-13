@@ -1,11 +1,11 @@
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+
 import PlantModal from "../../components/PlantModal";
-import { Link } from "react-router-dom";
+
 
 const Nav = () => {
   return (
@@ -15,13 +15,13 @@ const Nav = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Dashboard Partner
           </Typography>
-          <Box component="div" sx={{ mr: 5, display: "flex" }}>
+          <Box component="div" sx={{ mr: 5, display: "flex", gap: 2 }}>
             <PlantModal />
             <PlantModal edit />
           </Box>
-          <Link to={"/"} color="secondary">
-              <Button variant='contained'color="inherit">Logout</Button>
-          </Link>
+          <Button variant="outlined" color="inherit">
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
