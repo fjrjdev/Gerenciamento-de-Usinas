@@ -18,7 +18,7 @@ const PlantModal: React.FC<IPlantModal> = ({edit = false}) => {
 
   return (
     <div>
-      <Button color="inherit" variant="outlined" onClick={handleOpen}>{edit?"Edit a Plant": "Register New Plant" }</Button>
+      <Button color="secondary" variant="contained" onClick={handleOpen}>{edit?"Modify Plant": "Register a Plant" }</Button>
       <Modal
         open={open}
         onClose={handleClose}
