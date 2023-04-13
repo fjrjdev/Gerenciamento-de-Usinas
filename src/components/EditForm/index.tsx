@@ -4,7 +4,6 @@ import TextField from "@mui/material/TextField";
 import { useForm, useInput } from "lx-react-form";
 import React from "react";
 import { PlantsContext } from "../../contexts/PlantsContext/PlantsContext";
-import { boolean } from "yup";
 
 const EditForm = ({ props }: any) => {
   const { patchPlant, deletePlant } = React.useContext(PlantsContext);

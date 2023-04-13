@@ -1,20 +1,11 @@
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-import { useForm, useInput } from "lx-react-form";
-import CloseIcon from "@mui/icons-material/Close";
-import SelectInput from "../SelectInput";
 import { PlantsContext } from "../../contexts/PlantsContext/PlantsContext";
 import React from "react";
 import ModalHeader from "../ModalHeader";
 import EditForm from "../EditForm";
-import { PartnerContext } from "../../contexts/PartnerContext/PartnerContext";
 
-
-
-const EditPlantForm= () => {
-  const { plant, setEModal } = React.useContext(PlantsContext);  
+const EditPlantForm = () => {
+  const { plant, setEModal } = React.useContext(PlantsContext);
   return (
     <Box
       sx={{

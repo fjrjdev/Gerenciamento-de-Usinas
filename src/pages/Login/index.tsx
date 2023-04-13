@@ -11,9 +11,10 @@ import Container from "@mui/material/Container";
 
 import { useForm, useInput } from "lx-react-form";
 import { PartnerContext } from "../../contexts/PartnerContext/PartnerContext";
+import router from "../../routes";
 
 const Login = () => {
-  const {loginPartner} = React.useContext(PartnerContext)
+  const { loginPartner } = React.useContext(PartnerContext);
   const email = useInput({
     name: "email",
     customValidations: [
@@ -93,7 +94,11 @@ const Login = () => {
             Sign In
           </Button>
           <Grid item>
-            <Link href="/register" variant="body2">
+            <Link
+              onClick={() => router.navigate("/register")}
+              variant="body2"
+              sx={{ cursor: "pointer" }}
+            >
               {"Don't have an account? Register Now"}
             </Link>
           </Grid>

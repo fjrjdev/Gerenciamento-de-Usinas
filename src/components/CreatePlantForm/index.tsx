@@ -9,8 +9,6 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import { PlantsContext } from "../../contexts/PlantsContext/PlantsContext";
 
-
-
 const CreatePlantForm = () => {
   const { registerPlant, setCModal } = React.useContext(PlantsContext);
   const name = useInput({

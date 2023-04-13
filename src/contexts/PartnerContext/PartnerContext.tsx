@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 import jwt_decode from "jwt-decode";
 import { api } from "../../services";
 import router from "../../routes";
@@ -20,7 +20,7 @@ interface IPartnerProviderProps {
 interface IAcessToken {
   access: string;
   refresh: string;
-  partner_id?: string
+  partner_id?: string;
 }
 export interface IDecodedToken {
   user_id: string;
@@ -30,9 +30,9 @@ interface IPartnerContext {
   globalLoading: boolean;
   setGlobalLoading: React.Dispatch<React.SetStateAction<boolean>>;
   loginPartner(data: IPartnerLogin): void;
-  registerPartner(data:IPartner): void
-  getLocalStorage(): IAcessToken 
-  logout(): void
+  registerPartner(data: IPartner): void;
+  getLocalStorage(): IAcessToken;
+  logout(): void;
 }
 export const PartnerContext = createContext({} as IPartnerContext);
 
@@ -51,8 +51,9 @@ export const PartnerProviders = ({ children }: IPartnerProviderProps) => {
         .then((res) => {
           if (res.status === 200) {
             setLocalStorage(res.data);
-            setPartnerData(getLocalStorage())
-            router.navigate("/dashboard")
+            setPartnerData(getLocalStorage());
+            router.navigate("/dashboard");
+            window.location.reload();
           }
         })
         .catch((error) => console.log(error))
@@ -67,27 +68,28 @@ export const PartnerProviders = ({ children }: IPartnerProviderProps) => {
       .then((res) => {
         if (res.status === 200) {
           setLocalStorage(res.data, true);
-          setPartnerData(getLocalStorage())
-          router.navigate("/dashboard")
-        } else if(res.status === 401){
-          router.navigate("/")
+          setPartnerData(getLocalStorage());
+          router.navigate("/dashboard");
+        } else if (res.status === 401) {
+          window.location.reload();
+          router.navigate("/");
         }
       })
       .catch((error) => console.log(error))
       .finally(() => setGlobalLoading(false));
   };
-  const registerPartner = (data:IPartner) => {
+  const registerPartner = (data: IPartner) => {
     setGlobalLoading(true);
     api
-        .post("partners/", data)
-        .then((res) => {
-          if (res.status === 201) {
-            router.navigate("/")
-          }
-        })
-        .catch((error) => console.log(error))
-        .finally(() => setGlobalLoading(false));
-  }
+      .post("partners/", data)
+      .then((res) => {
+        if (res.status === 201) {
+          router.navigate("/");
+        }
+      })
+      .catch((error) => console.log(error))
+      .finally(() => setGlobalLoading(false));
+  };
   const setLocalStorage = (data: IAcessToken, refresh = false) => {
     if (refresh) {
       localStorage.setItem("@ACCESS", data.access);
@@ -111,9 +113,10 @@ export const PartnerProviders = ({ children }: IPartnerProviderProps) => {
     return token;
   };
   const logout = () => {
-    localStorage.clear()
-    router.navigate('/')
-  }
+    localStorage.clear();
+    router.navigate("/");
+    window.location.reload();
+  };
   return (
     <PartnerContext.Provider
       value={{
@@ -123,7 +126,7 @@ export const PartnerProviders = ({ children }: IPartnerProviderProps) => {
         loginPartner,
         registerPartner,
         getLocalStorage,
-        logout
+        logout,
       }}
     >
       {children}

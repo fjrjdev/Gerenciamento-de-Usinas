@@ -11,6 +11,7 @@ import HowToRegIcon from "@mui/icons-material/HowToReg";
 
 import { useForm, useInput } from "lx-react-form";
 import { PartnerContext } from "../../contexts/PartnerContext/PartnerContext";
+import router from "../../routes";
 
 const Register = () => {
   const { registerPartner } = React.useContext(PartnerContext);
@@ -151,8 +152,12 @@ const Register = () => {
             Register
           </Button>
           <Grid item>
-            <Link href="/" variant="body2">
-              {"Return to home"}
+            <Link
+              onClick={() => router.navigate("/")}
+              variant="body2"
+              sx={{ cursor: "pointer" }}
+            >
+              {"Back to home"}
             </Link>
           </Grid>
         </Box>

@@ -5,7 +5,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { PlantsContext } from "../../contexts/PlantsContext/PlantsContext";
-import Button from "@mui/material/Button";
 
 const SelectInput = () => {
   const { listPlant, plant, setPlant } = React.useContext(PlantsContext);

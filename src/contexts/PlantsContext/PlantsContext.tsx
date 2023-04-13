@@ -5,9 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import jwt_decode from "jwt-decode";
 import { api } from "../../services";
-import router from "../../routes";
 import { PartnerContext } from "../PartnerContext/PartnerContext";
 
 interface IPlant {
@@ -63,6 +61,7 @@ export const PlantsProviders = ({ children }: IPlantsProviders) => {
         const filteredArray = response.data.filter(
           (elem: any) => elem.partner_id === partnerToken.partner_id
         );
+        console.log(filteredArray);
         setListPlant(filteredArray);
         setPlant(filteredArray[0]);
       })
@@ -70,9 +69,10 @@ export const PlantsProviders = ({ children }: IPlantsProviders) => {
   };
   const registerPlant = (data: IPlant) => {
     setGlobalLoading(true);
-    api.defaults.headers.authorization = `Bearer ${partnerToken.access}`;
     api
-      .post("plants/", data)
+      .post("plants/", data, {
+        headers: { Authorization: `Bearer ${partnerToken.access}` },
+      })
       .then((res) => {
         if (res.status === 201) {
           getListPlant();
@@ -86,9 +86,10 @@ export const PlantsProviders = ({ children }: IPlantsProviders) => {
   };
   const patchPlant = (data: IPlant) => {
     setGlobalLoading(true);
-    api.defaults.headers.authorization = `Bearer ${partnerToken.access}`;
     api
-      .patch(`plants/${plant.id}/`, data)
+      .patch(`plants/${plant.id}/`, data, {
+        headers: { Authorization: `Bearer ${partnerToken.access}` },
+      })
       .then((res) => {
         if (res.status === 200) {
           setEModal(false);
@@ -100,9 +101,10 @@ export const PlantsProviders = ({ children }: IPlantsProviders) => {
   };
   const deletePlant = () => {
     setGlobalLoading(true);
-    api.defaults.headers.authorization = `Bearer ${partnerToken.access}`;
     api
-      .delete(`plants/${plant.id}/`)
+      .delete(`plants/${plant.id}/`, {
+        headers: { Authorization: `Bearer ${partnerToken.access}` },
+      })
       .then((res) => {
         if (res.status === 204) {
           setEModal(false);

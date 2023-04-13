@@ -8,9 +8,8 @@ import PlantModal from "../../components/PlantModal";
 import React from "react";
 import { PartnerContext } from "../../contexts/PartnerContext/PartnerContext";
 
-
 const Nav = () => {
-  const {logout} = React.useContext(PartnerContext)
+  const { logout } = React.useContext(PartnerContext);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">

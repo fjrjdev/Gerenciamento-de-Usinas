@@ -4,20 +4,22 @@ import CreatePlantForm from "../CreatePlantForm";
 import EditPlantForm from "../EditPlantForm";
 import { PlantsContext } from "../../contexts/PlantsContext/PlantsContext";
 
+const ForwardedCreatePlantForm = React.forwardRef(
+  function ForwardedCreatePlantForm(props, ref) {
+    return <CreatePlantForm {...props} ref={ref} />;
+  }
+);
 
-const ForwardedCreatePlantForm = React.forwardRef(function ForwardedCreatePlantForm(
+const ForwardedEditPlantForm = React.forwardRef(function ForwardedEditPlantForm(
   props,
   ref
 ) {
-  return <CreatePlantForm {...props} ref={ref} />;
-});
-
-const ForwardedEditPlantForm = React.forwardRef(function ForwardedEditPlantForm(props, ref) {
   return <EditPlantForm {...props} ref={ref} />;
 });
 
 const PlantModal = ({ edit = false }) => {
-  const { emodal, setEModal, cmodal, setCModal } = React.useContext(PlantsContext);
+  const { emodal, setEModal, cmodal, setCModal } =
+    React.useContext(PlantsContext);
 
   const chandleOpen = () => setCModal(true);
   const chandleClose = () => setCModal(false);
