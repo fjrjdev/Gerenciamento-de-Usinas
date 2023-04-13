@@ -76,7 +76,7 @@ export const PlantsProviders = ({ children }: IPlantsProviders) => {
       .finally(() => setGlobalLoading(false));
   };
   const patchPlant = (data: IPlant) => {
-    console.log(data)
+    setModal(false)
     setGlobalLoading(true);
     api.defaults.headers.authorization = `Bearer ${partnerToken.access}`;
     api

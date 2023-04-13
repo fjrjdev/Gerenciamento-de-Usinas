@@ -10,10 +10,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import { PlantsContext } from "../../contexts/PlantsContext/PlantsContext";
 
 interface ICreatePlantFrom {
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CreatePlantForm: React.FC<ICreatePlantFrom> = ({ setOpen }) => {
+const CreatePlantForm: React.FC<ICreatePlantFrom> = ({ setModal }) => {
   const { registerPlant } = React.useContext(PlantsContext);
   const name = useInput({
     name: "name",
@@ -71,7 +71,7 @@ const CreatePlantForm: React.FC<ICreatePlantFrom> = ({ setOpen }) => {
           <Typography component="h1" variant="h5">
             Register New Plant
           </Typography>
-          <button type="button" onClick={() => setOpen(false)}>
+          <button type="button" onClick={() => setModal(false)}>
             <CloseIcon />
           </button>
         </Box>

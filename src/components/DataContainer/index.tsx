@@ -10,7 +10,7 @@ const DataContainer = () => {
     {
       field: "name",
       headerName: "Name",
-      width: 100,
+      width: 150,
     },
     {
       field: "cep",
@@ -45,30 +45,6 @@ const DataContainer = () => {
       type: Date,
     },
   ];
-  // const data: any = [
-  //   {
-  //     id: "e308f74e-2adc-4c51-aae9-382976bb1a12",
-  //     name: "Sol Plant",
-  //     cep: "24445010",
-  //     latitude: 31231231,
-  //     longitude: 323232323,
-  //     maximum_capacity_GW: 1200,
-  //     partner_id: "c9db7767-6d91-4e16-8fea-4169d0e22e45",
-  //     created_at: "2023-04-11T18:58:06.776596Z",
-  //     updated_at: "2023-04-11T18:58:06.776596Z",
-  //   },
-  //   {
-  //     id: "8d47f1b4-989c-4654-a2c9-745c2082ef57",
-  //     name: "Sol Plante",
-  //     cep: "68905615",
-  //     latitude: 31231231,
-  //     longitude: 323232323,
-  //     maximum_capacity_GW: 500,
-  //     partner_id: "c9db7767-6d91-4e16-8fea-4169d0e22e45",
-  //     created_at: "2023-04-11T18:58:52.946269Z",
-  //     updated_at: "2023-04-11T18:59:30.706006Z",
-  //   },
-  // ];
   return (
     <Box sx={{ height: '90vh', width: "100%" }}>
       <DataGrid

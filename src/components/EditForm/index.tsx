@@ -7,7 +7,7 @@ import { PlantsContext } from "../../contexts/PlantsContext/PlantsContext";
 
 const EditForm = ({ props }: any) => {
   const { patchPlant } = React.useContext(PlantsContext);
-  const [data, setData] = React.useState();
+  const [data, setData] = React.useState(undefined);
   let id = "";
   const name = useInput({
     name: "name",
@@ -50,10 +50,12 @@ const EditForm = ({ props }: any) => {
     formFields: [name, cep, latitude, longitude, maximum_capacity_GW],
     clearFields: true,
     submitCallback: (formData) => {
-      setData(formData);
+      setData(undefined)
       if (data !== undefined) {
         patchPlant(formData);
+        setData(undefined)
       }
+      setData(formData);
     },
   });
   return (

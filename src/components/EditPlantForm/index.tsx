@@ -9,14 +9,15 @@ import { PlantsContext } from "../../contexts/PlantsContext/PlantsContext";
 import React from "react";
 import ModalHeader from "../ModalHeader";
 import EditForm from "../EditForm";
+import { PartnerContext } from "../../contexts/PartnerContext/PartnerContext";
 
 interface IEditPlantFrom {
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const EditPlantForm: React.FC<IEditPlantFrom> = ({ setOpen }: any) => {
+const EditPlantForm: React.FC<IEditPlantFrom> = ({ setModal }: any) => {
   const { plant } = React.useContext(PlantsContext);  
-
+  const { setGlobalLoading,  } = React.useContext(PartnerContext);
   return (
     <Box
       sx={{
@@ -27,7 +28,7 @@ const EditPlantForm: React.FC<IEditPlantFrom> = ({ setOpen }: any) => {
       }}
     >
       <Box sx={{ mt: 1, bgcolor: "white", maxWidth: 500, p: 2 }}>
-        <ModalHeader setOpen={setOpen} />
+        <ModalHeader setModal={setModal} />
         <EditForm props={{ plant }} />
       </Box>
     </Box>

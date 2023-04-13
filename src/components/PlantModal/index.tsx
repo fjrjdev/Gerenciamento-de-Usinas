@@ -5,15 +5,16 @@ import Modal from "@mui/material/Modal";
 import CreatePlantForm from "../CreatePlantForm";
 import EditPlantForm from "../EditPlantForm";
 import { Box } from "@mui/material";
+import { PlantsContext } from "../../contexts/PlantsContext/PlantsContext";
 
 interface IPlantModal {
   edit?: boolean;
 }
 
 const PlantModal: React.FC<IPlantModal> = ({ edit = false }) => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const { modal, setModal } = React.useContext(PlantsContext); 
+  const handleOpen = () => setModal(true);
+  const handleClose = () => setModal(false);
 
   return (
     <Box>
@@ -21,16 +22,16 @@ const PlantModal: React.FC<IPlantModal> = ({ edit = false }) => {
         {edit ? "Modify Plant" : "Register a Plant"}
       </Button>
       <Modal
-        open={open}
+        open={modal}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <>
         {edit ? (
-          <EditPlantForm setOpen={setOpen} />
+          <EditPlantForm setModal={setModal} />
         ) : (
-          <CreatePlantForm setOpen={setOpen} />
+          <CreatePlantForm setModal={setModal} />
         )}
       </>
        
