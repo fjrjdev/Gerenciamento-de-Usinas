@@ -7,9 +7,8 @@ import { PlantsContext } from "../../contexts/PlantsContext/PlantsContext";
 import { boolean } from "yup";
 
 const EditForm = ({ props }: any) => {
-  const { patchPlant } = React.useContext(PlantsContext);
+  const { patchPlant, deletePlant } = React.useContext(PlantsContext);
   const [select, setSelect] = React.useState(true);
-  let id = "";
   const name = useInput({
     name: "name",
     initialValue: props.plant.name + "",
@@ -130,6 +129,7 @@ const EditForm = ({ props }: any) => {
         color="error"
         sx={{ mb: 2 }}
         disabled={select}
+        onClick={deletePlant}
       >
         Delete Plant
       </Button>

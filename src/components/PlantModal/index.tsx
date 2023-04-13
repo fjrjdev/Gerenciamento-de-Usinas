@@ -1,42 +1,62 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
+import React from "react";
+import { Box, Button, Modal } from "@mui/material";
 import CreatePlantForm from "../CreatePlantForm";
 import EditPlantForm from "../EditPlantForm";
-import { Box } from "@mui/material";
 import { PlantsContext } from "../../contexts/PlantsContext/PlantsContext";
 
-interface IPlantModal {
-  edit?: boolean;
-}
 
-const PlantModal: React.FC<IPlantModal> = ({ edit = false }) => {
-  const { modal, setModal } = React.useContext(PlantsContext); 
-  const handleOpen = () => setModal(true);
-  const handleClose = () => setModal(false);
+const ForwardedCreatePlantForm = React.forwardRef(function ForwardedCreatePlantForm(
+  props,
+  ref
+) {
+  return <CreatePlantForm {...props} ref={ref} />;
+});
+
+const ForwardedEditPlantForm = React.forwardRef(function ForwardedEditPlantForm(props, ref) {
+  return <EditPlantForm {...props} ref={ref} />;
+});
+
+const PlantModal = ({ edit = false }) => {
+  const { emodal, setEModal, cmodal, setCModal } = React.useContext(PlantsContext);
+
+  const chandleOpen = () => setCModal(true);
+  const chandleClose = () => setCModal(false);
+  const ehandleOpen = () => setEModal(true);
+  const ehandleClose = () => setEModal(false);
 
   return (
     <Box>
-      <Button color="secondary" variant="contained" onClick={handleOpen}>
-        {edit ? "Modify Plant" : "Register a Plant"}
-      </Button>
-      <Modal
-        open={modal}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+      {edit ? (
         <>
-        {edit ? (
-          <EditPlantForm setModal={setModal} />
-        ) : (
-          <CreatePlantForm setModal={setModal} />
-        )}
-      </>
-       
-      </Modal>
+          <Button color="secondary" variant="contained" onClick={ehandleOpen}>
+            Modify Plant
+          </Button>
+          <Modal
+            open={emodal}
+            onClose={ehandleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <ForwardedEditPlantForm />
+          </Modal>
+        </>
+      ) : (
+        <>
+          <Button color="secondary" variant="contained" onClick={chandleOpen}>
+            Register a Plant
+          </Button>
+          <Modal
+            open={cmodal}
+            onClose={chandleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <ForwardedCreatePlantForm />
+          </Modal>
+        </>
+      )}
     </Box>
   );
 };
+
 export default PlantModal;

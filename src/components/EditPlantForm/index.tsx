@@ -11,13 +11,10 @@ import ModalHeader from "../ModalHeader";
 import EditForm from "../EditForm";
 import { PartnerContext } from "../../contexts/PartnerContext/PartnerContext";
 
-interface IEditPlantFrom {
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
-const EditPlantForm: React.FC<IEditPlantFrom> = ({ setModal }: any) => {
-  const { plant } = React.useContext(PlantsContext);  
-  const { setGlobalLoading,  } = React.useContext(PartnerContext);
+
+const EditPlantForm= () => {
+  const { plant, setEModal } = React.useContext(PlantsContext);  
   return (
     <Box
       sx={{
@@ -28,7 +25,7 @@ const EditPlantForm: React.FC<IEditPlantFrom> = ({ setModal }: any) => {
       }}
     >
       <Box sx={{ mt: 1, bgcolor: "white", maxWidth: 500, p: 2 }}>
-        <ModalHeader setModal={setModal} />
+        <ModalHeader setEModal={setEModal} />
         <EditForm props={{ plant }} />
       </Box>
     </Box>

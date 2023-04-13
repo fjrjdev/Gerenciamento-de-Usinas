@@ -9,12 +9,10 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import { PlantsContext } from "../../contexts/PlantsContext/PlantsContext";
 
-interface ICreatePlantFrom {
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
-const CreatePlantForm: React.FC<ICreatePlantFrom> = ({ setModal }) => {
-  const { registerPlant } = React.useContext(PlantsContext);
+
+const CreatePlantForm = () => {
+  const { registerPlant, setCModal } = React.useContext(PlantsContext);
   const name = useInput({
     name: "name",
     errorText: {
@@ -71,7 +69,7 @@ const CreatePlantForm: React.FC<ICreatePlantFrom> = ({ setModal }) => {
           <Typography component="h1" variant="h5">
             Register New Plant
           </Typography>
-          <button type="button" onClick={() => setModal(false)}>
+          <button type="button" onClick={() => setCModal(false)}>
             <CloseIcon />
           </button>
         </Box>

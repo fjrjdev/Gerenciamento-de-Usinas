@@ -33,11 +33,14 @@ interface IAcessToken {
 interface IPlantsContext {
   plant: IPlant | undefined;
   setPlant: React.Dispatch<React.SetStateAction<IPlant>>;
-  modal: boolean;
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  cmodal: boolean;
+  setCModal: React.Dispatch<React.SetStateAction<boolean>>;
+  emodal: boolean;
+  setEModal: React.Dispatch<React.SetStateAction<boolean>>;
   listPlant: IPlant[];
   registerPlant(data: IPlant): void;
   patchPlant(data: IPlant): void;
+  deletePlant(): void;
 }
 export const PlantsContext = createContext({} as IPlantsContext);
 
@@ -45,7 +48,8 @@ export const PlantsProviders = ({ children }: IPlantsProviders) => {
   const { setGlobalLoading, getLocalStorage } = useContext(PartnerContext);
   const [plant, setPlant] = useState<IPlant>({});
   const [listPlant, setListPlant] = useState<IPlant[]>([]);
-  const [modal, setModal] = useState(false);
+  const [cmodal, setCModal] = useState(false);
+  const [emodal, setEModal] = useState(false);
   const partnerToken = getLocalStorage();
   useEffect(() => {
     getListPlant();
@@ -56,7 +60,9 @@ export const PlantsProviders = ({ children }: IPlantsProviders) => {
     api
       .get("plants/")
       .then((response) => {
-        const filteredArray = response.data.filter((elem:any) => elem.partner_id === partnerToken.partner_id);
+        const filteredArray = response.data.filter(
+          (elem: any) => elem.partner_id === partnerToken.partner_id
+        );
         setListPlant(filteredArray);
         setPlant(filteredArray[0]);
       })
@@ -70,36 +76,55 @@ export const PlantsProviders = ({ children }: IPlantsProviders) => {
       .then((res) => {
         if (res.status === 201) {
           getListPlant();
+          setCModal(false);
+        } else if (res.status === 401) {
+          console.log(res.data);
         }
       })
       .catch((error) => console.log(error))
       .finally(() => setGlobalLoading(false));
   };
   const patchPlant = (data: IPlant) => {
-    setModal(false)
     setGlobalLoading(true);
     api.defaults.headers.authorization = `Bearer ${partnerToken.access}`;
     api
       .patch(`plants/${plant.id}/`, data)
       .then((res) => {
         if (res.status === 200) {
+          setEModal(false);
           getListPlant();
         }
       })
       .catch((error) => console.log(error))
       .finally(() => setGlobalLoading(false));
   };
-
+  const deletePlant = () => {
+    setGlobalLoading(true);
+    api.defaults.headers.authorization = `Bearer ${partnerToken.access}`;
+    api
+      .delete(`plants/${plant.id}/`)
+      .then((res) => {
+        if (res.status === 204) {
+          setEModal(false);
+          getListPlant();
+        }
+      })
+      .catch((error) => console.log(error))
+      .finally(() => setGlobalLoading(false));
+  };
   return (
     <PlantsContext.Provider
       value={{
         plant,
         setPlant,
-        modal,
-        setModal,
+        cmodal,
+        setCModal,
+        emodal,
+        setEModal,
         listPlant,
         registerPlant,
         patchPlant,
+        deletePlant,
       }}
     >
       {children}
