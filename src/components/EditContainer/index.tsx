@@ -4,7 +4,7 @@ import React from "react";
 import ModalHeader from "../ModalHeader";
 import EditForm from "../EditForm";
 
-const EditPlantForm = () => {
+const EditContainer = () => {
   const { plant, setEModal } = React.useContext(PlantsContext);
   return (
     <Box
@@ -23,4 +23,4 @@ const EditPlantForm = () => {
   );
 };
 
-export default EditPlantForm;
+export default EditContainer;

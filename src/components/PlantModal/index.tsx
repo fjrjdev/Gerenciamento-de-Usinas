@@ -1,8 +1,9 @@
 import React from "react";
 import { Box, Button, Modal } from "@mui/material";
 import CreatePlantForm from "../CreatePlantForm";
-import EditPlantForm from "../EditPlantForm";
+
 import { PlantsContext } from "../../contexts/PlantsContext/PlantsContext";
+import EditContainer from "../EditContainer";
 
 const ForwardedCreatePlantForm = React.forwardRef(
   function ForwardedCreatePlantForm(props, ref) {
@@ -14,7 +15,7 @@ const ForwardedEditPlantForm = React.forwardRef(function ForwardedEditPlantForm(
   props,
   ref
 ) {
-  return <EditPlantForm {...props} ref={ref} />;
+  return <EditContainer {...props} ref={ref} />;
 });
 
 const PlantModal = ({ edit = false }) => {
@@ -27,10 +28,10 @@ const PlantModal = ({ edit = false }) => {
   const ehandleClose = () => setEModal(false);
 
   return (
-    <Box>
+    <>
       {edit ? (
         <>
-          <Button color="secondary" variant="contained" onClick={ehandleOpen}>
+          <Button sx={{lineHeight:{xs: 1,sm: 1.05, md: 1.75}}} color="secondary" variant="contained" onClick={ehandleOpen}>
             Modify Plant
           </Button>
           <Modal
@@ -44,7 +45,7 @@ const PlantModal = ({ edit = false }) => {
         </>
       ) : (
         <>
-          <Button color="secondary" variant="contained" onClick={chandleOpen}>
+          <Button sx={{lineHeight:{xs: 1, sm: 1.75, md: 1.75}}} color="secondary" variant="contained" onClick={chandleOpen}>
             Register a Plant
           </Button>
           <Modal
@@ -57,7 +58,7 @@ const PlantModal = ({ edit = false }) => {
           </Modal>
         </>
       )}
-    </Box>
+    </>
   );
 };
 
