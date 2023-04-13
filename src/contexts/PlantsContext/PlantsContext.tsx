@@ -76,11 +76,8 @@ export const PlantsProviders = ({ children }: IPlantsProviders) => {
         if (res.status === 201) {
           getListPlant();
           setCModal(false);
-        } else if (res.status === 401) {
-          console.log(res.data);
         }
       })
-      .catch((error) => console.log(error))
       .finally(() => setGlobalLoading(false));
   };
   const patchPlant = (data: IPlant) => {
@@ -95,7 +92,6 @@ export const PlantsProviders = ({ children }: IPlantsProviders) => {
           getListPlant();
         }
       })
-      .catch((error) => console.log(error))
       .finally(() => setGlobalLoading(false));
   };
   const deletePlant = () => {
@@ -110,7 +106,6 @@ export const PlantsProviders = ({ children }: IPlantsProviders) => {
           getListPlant();
         }
       })
-      .catch((error) => console.log(error))
       .finally(() => setGlobalLoading(false));
   };
   return (

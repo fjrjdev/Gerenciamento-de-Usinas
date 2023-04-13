@@ -56,7 +56,6 @@ export const PartnerProviders = ({ children }: IPartnerProviderProps) => {
             window.location.reload();
           }
         })
-        .catch((error) => console.log(error))
         .finally(() => setGlobalLoading(false));
     }
   };
@@ -75,7 +74,6 @@ export const PartnerProviders = ({ children }: IPartnerProviderProps) => {
           router.navigate("/");
         }
       })
-      .catch((error) => console.log(error))
       .finally(() => setGlobalLoading(false));
   };
   const registerPartner = (data: IPartner) => {
@@ -87,7 +85,6 @@ export const PartnerProviders = ({ children }: IPartnerProviderProps) => {
           router.navigate("/");
         }
       })
-      .catch((error) => console.log(error))
       .finally(() => setGlobalLoading(false));
   };
   const setLocalStorage = (data: IAcessToken, refresh = false) => {
