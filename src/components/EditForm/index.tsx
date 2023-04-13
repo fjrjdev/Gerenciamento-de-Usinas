@@ -1,123 +1,122 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { useForm, useInput } from "lx-react-form";
 import React from "react";
-import { PlantsContext } from "../../contexts/PlantsContext/PlantsContext";
+import {
+  IPlant,
+  PlantsContext,
+} from "../../contexts/PlantsContext/PlantsContext";
+
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { PartnerContext } from "../../contexts/PartnerContext/PartnerContext";
 
 const EditForm = ({ props }: any) => {
-  const { patchPlant, deletePlant } = React.useContext(PlantsContext);
-  const [select, setSelect] = React.useState(true);
-  const name = useInput({
-    name: "name",
-    initialValue: props.plant.name + "",
-    errorText: {
-      required: "This field is required",
-    },
+  const { patchPlant, deletePlant, plant } = React.useContext(PlantsContext);
+  const { globalLoading } = React.useContext(PartnerContext);
+  React.useEffect(() => {
+    setFormData(props?.plant);
+  }, [props.plant]);
+  const [formData, setFormData] = React.useState<IPlant>({});
+  
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData((prev: any) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  const formSchema = yup.object().shape({
+    name: yup.string().optional().max(200),
+    cep: yup.string().optional(),
+    latitude: yup.number().optional(),
+    longitude: yup.number().optional(),
+    maximum_capacity_GW: yup.number().optional().min(0),
   });
-  const cep = useInput({
-    name: "cep",
-    mask: "cep",
-    initialValue: props.plant.cep + "",
-    errorText: {
-      required: "This field is required",
-    },
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(formSchema),
   });
-  const latitude = useInput({
-    name: "latitude",
-    initialValue: props.plant.latitude + "",
-    errorText: {
-      required: "This field is required",
-    },
-  });
-  const longitude = useInput({
-    name: "longitude",
-    initialValue: props.plant.longitude + "",
-    errorText: {
-      required: "This field is required",
-    },
-  });
-  const maximum_capacity_GW = useInput({
-    name: "maximum_capacity_GW",
-    initialValue: props.plant.maximum_capacity_GW + "",
-    errorText: {
-      required: "This field is required",
-    },
-  });
-
-  const form = useForm({
-    formFields: [name, cep, latitude, longitude, maximum_capacity_GW],
-    clearFields: true,
-    submitCallback: (formData) => {
-      setSelect(false);
-      if (!select) {
-        patchPlant(formData);
-        setSelect(true)
+  const verify = (data:any, data2:any) =>{
+    const ult: any = {}
+    for (const prop in data){
+      if(data.hasOwnProperty(prop) && data2.hasOwnProperty(prop) && data[prop] != data2[prop]){
+        ult[prop] = data2[prop]
       }
-    },
-  });
+    }
+    return ult
+  }
+  const onSubmitFunction = (data: IPlant) => {
+    patchPlant(verify(plant, data))
+ 
+  };
   return (
-    <Box component="form" onSubmit={form.handleSubmit} noValidate>
-      <Button type="submit" color="secondary" variant="contained">
-        Select Plant
-      </Button>
+    <Box component="form" onSubmit={handleSubmit(onSubmitFunction)}>
       <TextField
-        {...name.inputProps}
         margin="normal"
         required
         fullWidth
         id="name"
         label="Name"
-        helperText={name.error}
-        disabled={select}
+        {...register("name")}
+        defaultValue={props.plant.name}
+        value={formData?.name}
+        onChange={handleChange}
       />
       <TextField
-        {...cep.inputProps}
         margin="normal"
         required
         fullWidth
         id="cep"
         label="CEP"
-        helperText={cep.error}
-        disabled={select}
+        {...register("cep")}
+        defaultValue={props.plant.cep}
+        value={formData?.cep}
+        onChange={handleChange}
       />
       <TextField
-        {...latitude.inputProps}
         margin="normal"
         required
         fullWidth
         id="latitude"
         label="latitude"
-        helperText={latitude.error}
-        disabled={select}
+        {...register("latitude")}
+        defaultValue={props.plant.latitude}
+        value={formData?.latitude}
+        onChange={handleChange}
       />
       <TextField
-        {...longitude.inputProps}
         margin="normal"
         required
         fullWidth
         id="longitude"
         label="longitude"
-        helperText={longitude.error}
-        disabled={select}
+        {...register("longitude")}
+        defaultValue={props.plant.longitude}
+        value={formData?.longitude}
+        onChange={handleChange}
       />
       <TextField
-        {...maximum_capacity_GW.inputProps}
         margin="normal"
         required
         fullWidth
         id="maximum_capacity_GW"
         label="Maximum GW Capacity"
-        helperText={maximum_capacity_GW.error}
-        disabled={select}
+        {...register("maximum_capacity_GW")}
+        defaultValue={props.plant.maximum_capacity_GW}
+        value={formData?.maximum_capacity_GW}
+        onChange={handleChange}
       />
       <Button
         type="submit"
         fullWidth
         variant="contained"
-        onClick={() => {}}
         sx={{ mt: 3, mb: 3 }}
-        disabled={select}
+        disabled={globalLoading}
       >
         Save Changes
       </Button>
@@ -127,7 +126,7 @@ const EditForm = ({ props }: any) => {
         variant="contained"
         color="error"
         sx={{ mb: 2 }}
-        disabled={select}
+        disabled={globalLoading}
         onClick={deletePlant}
       >
         Delete Plant
