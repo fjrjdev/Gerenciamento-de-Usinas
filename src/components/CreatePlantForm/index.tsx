@@ -61,13 +61,13 @@ const CreatePlantForm = () => {
         component="form"
         onSubmit={form.handleSubmit}
         noValidate
-        sx={{ mt: 1, bgcolor: "white", maxWidth: 500, p: 2 }}
+        sx={{ mt: 1, bgcolor: "white", maxWidth: 500, p: 2,  borderRadius: 2  }}
       >
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Typography component="h1" variant="h5">
             Register New Plant
           </Typography>
-          <Button type="button" onClick={() => setCModal(false)}>
+          <Button sx={{minWidth: 0}} type="button" onClick={() => setCModal(false)}>
             <CloseIcon />
           </Button>
         </Box>

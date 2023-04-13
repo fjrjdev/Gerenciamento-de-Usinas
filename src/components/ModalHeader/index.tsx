@@ -11,7 +11,7 @@ const ModalHeader = ({ setEModal }: any) => {
         <Typography component="h1" variant="h5">
           Edit Plant
         </Typography>
-        <Button type="button" onClick={() => setEModal(false)}>
+        <Button type="button"  sx={{minWidth: 0}} onClick={() => setEModal(false)}>
           <CloseIcon />
         </Button>
       </Box>

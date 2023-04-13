@@ -15,7 +15,7 @@ const EditPlantForm = () => {
         alignItems: "center",
       }}
     >
-      <Box sx={{ mt: 1, bgcolor: "white", maxWidth: 500, p: 2 }}>
+      <Box sx={{ mt: 1, bgcolor: "white", maxWidth: 500, p: 2, borderRadius: 2 }}>
         <ModalHeader setEModal={setEModal} />
         <EditForm props={{ plant }} />
       </Box>
