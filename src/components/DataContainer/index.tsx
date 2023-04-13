@@ -4,49 +4,49 @@ import { PlantsContext } from "../../contexts/PlantsContext/PlantsContext";
 import { useContext } from "react";
 
 const DataContainer = () => {
-  const {listPlant} = useContext(PlantsContext)
+  const { listPlant } = useContext(PlantsContext);
   const columns: any = [
     { field: "id", headerName: "ID", width: 290 },
     {
       field: "name",
       headerName: "Name",
-      width: 150,
+      width: 180,
     },
     {
       field: "cep",
       headerName: "CEP",
-      width: 90,
+      width: 180,
     },
     {
       field: "latitude",
       headerName: "Latitude",
-      width: 110,
+      width: 180,
     },
     {
       field: "longitude",
       headerName: "Longitude",
-      width: 110,
+      width: 180,
     },
     {
       field: "maximum_capacity_GW",
       headerName: "Maximum GW Capacity",
-      width: 190,
+      width: 180,
     },
     {
       field: "created_at",
       headerName: "Created At",
-      width: 130,
+      width: 180,
       type: Date,
     },
     {
       field: "updated_at",
       headerName: "Updated At",
-      width: 130,
+      width: 180,
       type: Date,
     },
   ];
   return (
-    <Box sx={{ height: '90vh', width: "100%" }}>
+    <Box sx={{ height: "90vh", width: "100%", p: "1.25rem" }}>
       <DataGrid
         rows={listPlant}
         columns={columns}
