@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
-
+import handleError from "../../utils/handleError";
 import { PlantsContext } from "../../contexts/PlantsContext/PlantsContext";
 
 const CreatePlantForm = () => {
@@ -79,6 +79,7 @@ const CreatePlantForm = () => {
           label="Name"
           autoComplete="name"
           helperText={name.error}
+          error={ handleError(name)}
           {...name.inputProps}
         />
         <TextField
@@ -89,6 +90,7 @@ const CreatePlantForm = () => {
           label="CEP"
           autoComplete="cep"
           helperText={cep.error}
+          error={ handleError(cep)}
           {...cep.inputProps}
         />
         <TextField
@@ -99,6 +101,7 @@ const CreatePlantForm = () => {
           label="latitude"
           autoComplete="latitude"
           helperText={latitude.error}
+          error={ handleError(latitude)}
           {...latitude.inputProps}
         />
         <TextField
@@ -109,6 +112,7 @@ const CreatePlantForm = () => {
           label="longitude"
           autoComplete="longitude"
           helperText={longitude.error}
+          error={ handleError(longitude)}
           {...longitude.inputProps}
         />
         <TextField
@@ -119,6 +123,7 @@ const CreatePlantForm = () => {
           label="Maximum GW Capacity"
           autoComplete="maximum_capacity_GW"
           helperText={maximum_capacity_GW.error}
+          error={ handleError(maximum_capacity_GW)}
           {...maximum_capacity_GW.inputProps}
         />
         <Button

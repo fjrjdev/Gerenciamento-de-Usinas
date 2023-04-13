@@ -12,6 +12,7 @@ import Container from "@mui/material/Container";
 import { useForm, useInput } from "lx-react-form";
 import { PartnerContext } from "../../contexts/PartnerContext/PartnerContext";
 import router from "../../routes";
+import handleError from "../../utils/handleError";
 
 const Login = () => {
   const { loginPartner } = React.useContext(PartnerContext);
@@ -72,6 +73,7 @@ const Login = () => {
             label="Email Address"
             autoComplete="email"
             helperText={email.error}
+            error={ handleError(email)}
             {...email.inputProps}
           />
           <TextField
@@ -84,6 +86,7 @@ const Login = () => {
             autoComplete="current-password"
             helperText={password.error}
             {...password.inputProps}
+            error={ handleError(password)}
           />
           <Button
             type="submit"

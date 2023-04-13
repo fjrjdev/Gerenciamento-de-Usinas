@@ -12,6 +12,7 @@ import HowToRegIcon from "@mui/icons-material/HowToReg";
 import { useForm, useInput } from "lx-react-form";
 import { PartnerContext } from "../../contexts/PartnerContext/PartnerContext";
 import router from "../../routes";
+import handleError from "../../utils/handleError";
 
 const Register = () => {
   const { registerPartner } = React.useContext(PartnerContext);
@@ -99,6 +100,7 @@ const Register = () => {
             label="Name"
             autoComplete="name"
             helperText={name.error}
+            error={ handleError(name)}
             {...name.inputProps}
           />
           <TextField
@@ -109,6 +111,7 @@ const Register = () => {
             label="CNPJ"
             autoComplete="cnpj"
             helperText={cnpj.error}
+            error={ handleError(cnpj)}
             {...cnpj.inputProps}
           />
           <TextField
@@ -119,6 +122,7 @@ const Register = () => {
             label="Email"
             autoComplete="email"
             helperText={email.error}
+            error={ handleError(email)}
             {...email.inputProps}
           />
           <TextField
@@ -130,6 +134,7 @@ const Register = () => {
             id="password"
             autoComplete="current-password"
             helperText={password.error}
+            error={ handleError(password)}
             {...password.inputProps}
           />
           <TextField
@@ -141,6 +146,7 @@ const Register = () => {
             id="confirmPassword"
             autoComplete="current-password"
             helperText={confirmPassword.error}
+            error={ handleError(confirmPassword)}
             {...confirmPassword.inputProps}
           />
           <Button
