@@ -15,9 +15,9 @@ interface IPlant {
   name?: string;
   cep?: string;
   email?: string;
-  latitude?: string
-  longitude?:string
-  maximum_capacity_GW?: string
+  latitude?: string;
+  longitude?: string;
+  maximum_capacity_GW?: string;
   created_at?: Date;
   updated_at?: Date;
   partner_id?: string;
@@ -37,6 +37,7 @@ interface IPlantsContext {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
   listPlant: IPlant[];
   registerPlant(data: IPlant): void;
+  patchPlant(data: IPlant): void;
 }
 export const PlantsContext = createContext({} as IPlantsContext);
 
@@ -55,8 +56,9 @@ export const PlantsProviders = ({ children }: IPlantsProviders) => {
     api
       .get("plants/")
       .then((response) => {
-        setListPlant(response.data) 
-        setPlant(response.data[0]) 
+        const filteredArray = response.data.filter((elem:any) => elem.partner_id === partnerToken.partner_id);
+        setListPlant(filteredArray);
+        setPlant(filteredArray[0]);
       })
       .finally(() => setGlobalLoading(false));
   };
@@ -73,6 +75,20 @@ export const PlantsProviders = ({ children }: IPlantsProviders) => {
       .catch((error) => console.log(error))
       .finally(() => setGlobalLoading(false));
   };
+  const patchPlant = (data: IPlant) => {
+    console.log(data)
+    setGlobalLoading(true);
+    api.defaults.headers.authorization = `Bearer ${partnerToken.access}`;
+    api
+      .patch(`plants/${plant.id}/`, data)
+      .then((res) => {
+        if (res.status === 200) {
+          getListPlant();
+        }
+      })
+      .catch((error) => console.log(error))
+      .finally(() => setGlobalLoading(false));
+  };
 
   return (
     <PlantsContext.Provider
@@ -83,6 +99,7 @@ export const PlantsProviders = ({ children }: IPlantsProviders) => {
         setModal,
         listPlant,
         registerPlant,
+        patchPlant,
       }}
     >
       {children}

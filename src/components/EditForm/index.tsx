@@ -3,10 +3,12 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useForm, useInput } from "lx-react-form";
 import React from "react";
+import { PlantsContext } from "../../contexts/PlantsContext/PlantsContext";
 
 const EditForm = ({ props }: any) => {
-  console.log(props.plant);
-  //   React.useEffect(()=>{form.handleSubmit}, [props.plant])
+  const { patchPlant } = React.useContext(PlantsContext);
+  const [data, setData] = React.useState();
+  let id = "";
   const name = useInput({
     name: "name",
     initialValue: props.plant.name + "",
@@ -48,12 +50,17 @@ const EditForm = ({ props }: any) => {
     formFields: [name, cep, latitude, longitude, maximum_capacity_GW],
     clearFields: true,
     submitCallback: (formData) => {
-      console.log(formData);
+      setData(formData);
+      if (data !== undefined) {
+        patchPlant(formData);
+      }
     },
   });
   return (
     <Box component="form" onSubmit={form.handleSubmit} noValidate>
-      <Button type="submit" color="primary" variant="contained">Select Plant</Button>
+      <Button type="submit" color="primary" variant="contained">
+        Select Plant
+      </Button>
       <TextField
         {...name.inputProps}
         margin="normal"
@@ -99,7 +106,13 @@ const EditForm = ({ props }: any) => {
         label="Maximum GW Capacity"
         helperText={maximum_capacity_GW.error}
       />
-      <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 3 }}>
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        onClick={() => {}}
+        sx={{ mt: 3, mb: 3 }}
+      >
         Save Changes
       </Button>
       <Button
