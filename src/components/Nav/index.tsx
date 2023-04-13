@@ -5,9 +5,12 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
 import PlantModal from "../../components/PlantModal";
+import React from "react";
+import { PartnerContext } from "../../contexts/PartnerContext/PartnerContext";
 
 
 const Nav = () => {
+  const {logout} = React.useContext(PartnerContext)
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -19,7 +22,7 @@ const Nav = () => {
             <PlantModal />
             <PlantModal edit />
           </Box>
-          <Button variant="outlined" color="inherit">
+          <Button variant="outlined" color="inherit" onClick={logout}>
             Logout
           </Button>
         </Toolbar>

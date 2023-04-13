@@ -32,6 +32,7 @@ interface IPartnerContext {
   loginPartner(data: IPartnerLogin): void;
   registerPartner(data:IPartner): void
   getLocalStorage(): IAcessToken 
+  logout(): void
 }
 export const PartnerContext = createContext({} as IPartnerContext);
 
@@ -109,7 +110,10 @@ export const PartnerProviders = ({ children }: IPartnerProviderProps) => {
     };
     return token;
   };
-
+  const logout = () => {
+    localStorage.clear()
+    router.navigate('/')
+  }
   return (
     <PartnerContext.Provider
       value={{
@@ -118,7 +122,8 @@ export const PartnerProviders = ({ children }: IPartnerProviderProps) => {
         setGlobalLoading,
         loginPartner,
         registerPartner,
-        getLocalStorage
+        getLocalStorage,
+        logout
       }}
     >
       {children}
