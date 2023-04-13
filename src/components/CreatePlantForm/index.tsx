@@ -1,11 +1,13 @@
+import React from "react";
+import { useForm, useInput } from "lx-react-form";
+
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { useForm, useInput } from "lx-react-form";
 import CloseIcon from "@mui/icons-material/Close";
+
 import { PlantsContext } from "../../contexts/PlantsContext/PlantsContext";
-import React from "react";
 
 interface ICreatePlantFrom {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;

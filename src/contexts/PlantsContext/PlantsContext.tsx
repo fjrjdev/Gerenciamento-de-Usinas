@@ -11,10 +11,13 @@ import router from "../../routes";
 import { PartnerContext } from "../PartnerContext/PartnerContext";
 
 interface IPlant {
-  id: string;
-  name: string;
-  cnpj: string;
-  email: string;
+  id?: string;
+  name?: string;
+  cep?: string;
+  email?: string;
+  latitude?: string
+  longitude?:string
+  maximum_capacity_GW?: string
   created_at?: Date;
   updated_at?: Date;
   partner_id?: string;
@@ -29,6 +32,7 @@ interface IAcessToken {
 
 interface IPlantsContext {
   plant: IPlant | undefined;
+  setPlant: React.Dispatch<React.SetStateAction<IPlant>>;
   modal: boolean;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
   listPlant: IPlant[];
@@ -38,7 +42,7 @@ export const PlantsContext = createContext({} as IPlantsContext);
 
 export const PlantsProviders = ({ children }: IPlantsProviders) => {
   const { setGlobalLoading, getLocalStorage } = useContext(PartnerContext);
-  const [plant, setPlant] = useState<IPlant>();
+  const [plant, setPlant] = useState<IPlant>({});
   const [listPlant, setListPlant] = useState<IPlant[]>([]);
   const [modal, setModal] = useState(false);
   const partnerToken = getLocalStorage();
@@ -50,7 +54,10 @@ export const PlantsProviders = ({ children }: IPlantsProviders) => {
     setGlobalLoading(true);
     api
       .get("plants/")
-      .then((response) => setListPlant(response.data))
+      .then((response) => {
+        setListPlant(response.data) 
+        setPlant(response.data[0]) 
+      })
       .finally(() => setGlobalLoading(false));
   };
   const registerPlant = (data: IPlant) => {
@@ -60,7 +67,7 @@ export const PlantsProviders = ({ children }: IPlantsProviders) => {
       .post("plants/", data)
       .then((res) => {
         if (res.status === 201) {
-          getListPlant()
+          getListPlant();
         }
       })
       .catch((error) => console.log(error))
@@ -71,6 +78,7 @@ export const PlantsProviders = ({ children }: IPlantsProviders) => {
     <PlantsContext.Provider
       value={{
         plant,
+        setPlant,
         modal,
         setModal,
         listPlant,

@@ -4,39 +4,39 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-
-
+import { PlantsContext } from "../../contexts/PlantsContext/PlantsContext";
+import Button from "@mui/material/Button";
 
 const SelectInput = () => {
-
-  const handleChange = (event:any) => {
-    console.log(event.target.value);
+  const { listPlant, plant, setPlant } = React.useContext(PlantsContext);
+  const [value, setValue] = React.useState(0);
+  const handleChange = (event: any) => {
+    setValue(event.target.value);
+    setPlant(listPlant[event.target.value]);
   };
-  const list = [
-    "plant1",
-    "plant2"
-  ];
+
   return (
     <Box sx={{ minWidth: 120, maxHeight: 100 }}>
       <FormControl fullWidth>
         <InputLabel id="simple">Plant</InputLabel>
         <Select
           labelId="simple"
-          id="storeInput"
-        //   value={store}
-          label="Store"
+          id="plantInput"
+          value={value}
+          label="Plants"
           onChange={handleChange}
-          autoWidth
         >
-          {list.map((elem, index) => (
-            <MenuItem key={index} value={elem}>
-              {elem}
-            </MenuItem>
-          ))}
+          {listPlant.map((elem: any, index) => {
+            return (
+              <MenuItem key={elem.id} value={index}>
+                {elem.name}
+              </MenuItem>
+            );
+          })}
         </Select>
       </FormControl>
     </Box>
   );
-}
+};
 
-export default SelectInput
+export default SelectInput;
