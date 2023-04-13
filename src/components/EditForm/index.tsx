@@ -19,7 +19,7 @@ const EditForm = ({ props }: any) => {
     setFormData(props?.plant);
   }, [props.plant]);
   const [formData, setFormData] = React.useState<IPlant>({});
-  
+
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData((prev: any) => ({
@@ -41,18 +41,24 @@ const EditForm = ({ props }: any) => {
   } = useForm({
     resolver: yupResolver(formSchema),
   });
-  const verify = (data:any, data2:any) =>{
-    const ult: any = {}
-    for (const prop in data){
-      if(data.hasOwnProperty(prop) && data2.hasOwnProperty(prop) && data[prop] != data2[prop]){
-        ult[prop] = data2[prop]
+  const verifyDifference = (data: any, data2: any) => {
+    const difference: any = {};
+    for (const prop in data) {
+      if (
+        data.hasOwnProperty(prop) &&
+        data2.hasOwnProperty(prop) &&
+        data[prop] != data2[prop]
+      ) {
+        difference[prop] = data2[prop];
       }
     }
-    return ult
-  }
+    return difference;
+  };
   const onSubmitFunction = (data: IPlant) => {
-    patchPlant(verify(plant, data))
- 
+    const serializerData = verifyDifference(plant, data)
+    if(Object.keys(serializerData).length >= 0){
+      patchPlant(serializerData);
+    }
   };
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmitFunction)}>

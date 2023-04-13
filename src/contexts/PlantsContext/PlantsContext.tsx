@@ -8,7 +8,7 @@ import {
 import { api } from "../../services";
 import { PartnerContext } from "../PartnerContext/PartnerContext";
 
-interface IPlant {
+export interface IPlant {
   id?: string;
   name?: string;
   cep?: string;
@@ -61,7 +61,6 @@ export const PlantsProviders = ({ children }: IPlantsProviders) => {
         const filteredArray = response.data.filter(
           (elem: any) => elem.partner_id === partnerToken.partner_id
         );
-        console.log(filteredArray);
         setListPlant(filteredArray);
         setPlant(filteredArray[0]);
       })

@@ -14,7 +14,7 @@ const Nav = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: {xs: 0, sm: 1} }}>
             Dashboard Partner
           </Typography>
           <Box component="div" sx={{ mr: 5, display: "flex", gap: 2 }}>
