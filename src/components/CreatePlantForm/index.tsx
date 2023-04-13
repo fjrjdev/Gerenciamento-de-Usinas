@@ -67,9 +67,9 @@ const CreatePlantForm = () => {
           <Typography component="h1" variant="h5">
             Register New Plant
           </Typography>
-          <button type="button" onClick={() => setCModal(false)}>
+          <Button type="button" onClick={() => setCModal(false)}>
             <CloseIcon />
-          </button>
+          </Button>
         </Box>
         <TextField
           margin="normal"
